@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\CourseCertificate;
+use App\Models\CourseMaterial;
 use App\Models\CoursePurchase;
 use App\Models\Meeting;
 use App\Models\Message;
@@ -20,8 +22,9 @@ class Account extends Controller
         $user = Auth::user()->id;
         $course = CoursePurchase::where('user_id', $user)->count();
         $amount = Transaction::where('user_id', $user)->sum('amount');
-        $courses = CoursePurchase::with(['course'])->where('user_id', $user)->get();
-        return view('user.home', compact('course', 'amount', 'courses'));
+        $courses = CoursePurchase::with(['course', 'instructor'])->where('user_id', $user)->get();
+        $meetings = Meeting::with(['course', 'instructor'])->where('user_id', $user)->where('status', '=', '0')->get();
+        return view('user.home', compact('course', 'amount', 'courses', 'meetings'));
     }
 
     public function courses()
@@ -72,12 +75,14 @@ class Account extends Controller
 
     public function materials()
     {
-        return view('user.material');
+        $materials = CourseMaterial::with(['course', 'instructor'])->get();
+        return view('user.material', compact('materials'));
     }
 
     public function certificates()
     {
-        return view('user.certificate');
+        $certificates = CourseCertificate::with(['course'])->where('user_id', Auth::user()->id)->get();;
+        return view('user.certificate', compact('certificates'));
     }
 
     public function setting()
@@ -87,19 +92,31 @@ class Account extends Controller
 
     public function passwordUpdate(Request $request)
     {
-        $validated = $request->validate([
-            'password' => 'required|confirmed|min:6'
+        $this->validate($request, [
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:6',
         ]);
-        $id = Auth::user()->id;
-        User::where('id', '=', $id)->update([
-            'password' => Hash::make($request->input('password')),
-        ]);
-        return redirect()->back()->with('success', 'Password Has been changed');
+
+        $user = Auth::user();
+        $hashedPassword = $user->password;
+
+        if (Hash::check($request->old_password, $hashedPassword)) {
+            //Change the password
+            $user->fill([
+                'password' => Hash::make($request->password)
+            ])->save();
+
+            $request->session()->flash('success', 'Password changed successfully.');
+            return redirect()->back();
+        } else {
+            $request->session()->flash('failure', 'Current password is not correct.');
+            return redirect()->back();
+        }
     }
 
     public function attendMeeting($meeting)
     {
-        if (Meeting::where('meeting_id', '=', $meeting)->get()->first()) {
+        if (Meeting::where('meeting_id', '=', $meeting)->where('user_id', '=', Auth::user()->id)->get()->first()) {
             $meeting_id = $meeting;
             return view('meeting', compact('meeting_id'));
         }

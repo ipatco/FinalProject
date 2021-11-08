@@ -82,4 +82,21 @@ class Course extends Model
     {
         return $this->belongsTo('App\Models\Category');
     }
+
+    public function meeting()
+    {
+        return $this->hasMany('\App\Models\Meeting');
+    }
+
+    //course materials
+    public function courseMaterials()
+    {
+        return $this->hasMany('\App\Models\CourseMaterials');
+    }
+
+    //course certificate
+    public function courseCertificate()
+    {
+        return $this->hasMany('\App\Models\CourseCertificate');
+    }
 }

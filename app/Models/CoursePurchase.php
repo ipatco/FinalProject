@@ -29,4 +29,16 @@ class CoursePurchase extends Model
     {
         return $this->belongsTo('App\Models\User', 'instructor_id', 'id');
     }
+
+    public function getStudents()
+    {
+        // return where instructor_id = Auth::user()->id;
+        return $this->select('user_id')->distinct()->with(['user'])->where('instructor_id', '=', Auth::user()->id)->get();
+    }
+
+    public function getCourses()
+    {
+        // only get unique courses of a user
+        return $this->select('course_id')->distinct()->with(['course'])->where('instructor_id', '=', Auth::user()->id)->get();
+    }
 }

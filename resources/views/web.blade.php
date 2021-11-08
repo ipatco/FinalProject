@@ -109,7 +109,7 @@
 				background-image: url({{ asset('assets/grid-color.png') }});
 			}
 			.logoImg{
-				max-width: 65px;
+				height: 65px !important;
 			}
 			.fa.fa-check{
 				color: #00b62d !important;
@@ -300,6 +300,9 @@ margin-bottom: 10px;
 .vertical-wrapper .content-vertical .mega-vertical-menu > li .dropdown-menu.vertical-megamenu {
     padding: 5px;
 }
+.fs-15px {
+    font-size: 15px !important;
+}
 		</style>
 		@yield('css')
 
@@ -314,7 +317,7 @@ margin-bottom: 10px;
 					<nav>
 						<!-- Menu Toggle btn-->
 						<div class="menu-toggle">
-							<img class="nav_logo_img img-fluid" src="{{ asset('assets/logo.png') }}" alt="header-logo3.png">
+							<img class="nav_logo_img img-fluid" src="{{ asset('assets/new-logo.png') }}" alt="header-logo3.png">
 							<button type="button" id="menu-btn">
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
@@ -322,8 +325,7 @@ margin-bottom: 10px;
 							</button>
 						</div>
 						<a href="{{ route('web.home') }}" class="navbar_brand float-left dn-smd">
-							<img class="logo1 img-fluid logoImg" src="{{ asset('assets/logo.png') }}" alt="header-logo2.png">
-							<span>Learn to Earn</span>
+							<img class="logo1 img-fluid logoImg" src="{{ asset('assets/new-logo.png') }}" alt="header-logo2.png">
 						</a>
 						<!-- Responsive Menu Structure-->
 						<!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
@@ -410,8 +412,7 @@ margin-bottom: 10px;
 				<div class="mobile-menu">
 					<div class="header stylehome1 home5">
 						<div class="main_logo_home2">
-							<img class="nav_logo_img img-fluid float-left mt20" src="{{ asset('assets/images/header-logo2.png') }}" alt="header-logo2.png">
-							<span>Learn2Earn</span>
+							<img class="nav_logo_img img-fluid float-left mt20 logoImg" src="{{ asset('assets/new-logo.png') }}" alt="header-logo2.png">
 						</div>
 						<ul class="menu_bar_home2 home5">
 							<li class="list-inline-item">
@@ -547,8 +548,7 @@ margin-bottom: 10px;
 					<div class="row">
 						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 pb15 pt15">
 							<div class="logo-widget home1">
-								<img class="img-fluid logoImg" src="{{ asset('assets/logo.png') }}" alt="header-logo.png">
-								<span>Learn to Earn</span>
+								<img class="img-fluid logoImg" src="{{ asset('assets/new-logo.png') }}" alt="header-new-logo.png">
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 pb15 pt15">

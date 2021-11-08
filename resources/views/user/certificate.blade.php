@@ -1,29 +1,37 @@
 @extends('user')
-@section('title', 'Certificates')
+@section('title', 'My Certificates')
 
 @section('css')
+<style>
+.text-right {
+    text-align: right;
+}
+</style>
 @endsection
 
 @section('page')
-
-
-    <div class="row">
-        <x-user-mobile-nav></x-user-mobile-nav>
-        <div class="col-lg-12">
-            <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-                <h4 class="title float-left">Certificates</h4>
-                <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{ route('web.home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('user.account') }}">My Account</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Certificates</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="col-xl-12">
-            <div class="application_statics" style="min-height: 600px;">
-                <h4>Your Certificates</h4>
-                <p>Nothing found!</p>
+<div class="row">
+    <div class="col-lg-12 col-md-12 mb-md-0">
+        <div class="row">
+            @foreach ($certificates as $certificate)
+            <div class="col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="{{ asset('uploads/certificates/'.$certificate->image) }}" class="img-fluid" alt="">
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <h6>{{ $certificate->course->title }}</h6>
+                                <a href="{{ asset('uploads/certificates/'.$certificate->image) }}" class="btn btn-primary" download="">Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            @endforeach
         </div>
     </div>
+</div>
+
 @endsection

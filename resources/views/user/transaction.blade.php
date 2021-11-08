@@ -5,55 +5,52 @@
 @endsection
 
 @section('page')
-
-
-    <div class="row">
-        <x-user-mobile-nav></x-user-mobile-nav>
-        <div class="col-lg-12">
-            <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-                <h4 class="title float-left">Transactions</h4>
-                <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{ route('web.home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('user.account') }}">My Account</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Transactions</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="col-xl-12">
-            <div class="application_statics" style="min-height: 600px;">
-                <h4>Your Transactions</h4>
+<div class="row">
+    <div class="col-lg-12 col-md-12 mb-md-0">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="row">
+                    <div class="col-lg-6 col-7">
+                        <h6>Transaction History</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th width=10>#</th>
                                 <th>Course Name</th>
-                                <th>Purchased on</th>
+                                <th>Payment on</th>
                                 <th>Amount</th>
                                 <th>Method</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($transactions)
-                            @php
-                                $index = 1;
-                            @endphp
-                                @foreach ($transactions as $transaction)
-                                    <tr>
-                                        <td>{{ $index++ }}</td>
-                                        <td>{{ $transaction->course->title }}</td>
-                                        <td>{{ date('M d, Y', strtotime($transaction->created_at)) }}</td>
-                                        <td>{{ $transaction->amount }}</td>
-                                        <td>{{ $transaction->method }}</td>
-                                        <td>{!! $transaction->verified == 'verified'?'<span class="badge badge-success">Verified</span>':'<span class="badge badge-danger">Unverified</span>' !!}</td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                            @foreach($transactions as $transaction)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $transaction->course->title }}</td>
+                                <td>{{ $transaction->created_at->format('d M Y') }}</td>
+                                <td>{{ $transaction->amount }}</td>
+                                <td>{{ ucwords($transaction->method) }}</td>
+                                <td>
+                                    @if($transaction->verified == 'verified')
+                                    <span class="badge badge-sm bg-gradient-success">{{ $transaction->verified }}</span>
+                                    @elseif($transaction->verified == 'failed')
+                                    <span class="badge badge-sm bg-gradient-danger">{{ $transaction->verified }}</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 @endsection

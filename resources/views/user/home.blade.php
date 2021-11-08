@@ -5,88 +5,143 @@
 @endsection
 
 @section('page')
-
-
-    <div class="row">
-        <x-user-mobile-nav></x-user-mobile-nav>
-        <div class="col-lg-12">
-            <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-                <h4 class="title float-left">Dashboard</h4>
-                <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="ff_one">
-                <div class="icon"><span class="flaticon-speech-bubble"></span></div>
-                <div class="detais">
-                    <p>Messages</p>
-                    <div class="timer">0</div>
+<div class="row mb-4">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="material-icons opacity-10">card_membership</i>
+                </div>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Certificate Issued</p>
+                    <h4 class="mb-0">0</h4>
                 </div>
             </div>
+            <div class="card-footer p-3"></div>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="ff_one style2">
-                <div class="icon"><span class="flaticon-rating"></span></div>
-                <div class="detais">
-                    <p>Certificate Issued</p>
-                    <div class="timer">0</div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute ">
+                    <i class="material-icons opacity-10">assignment</i>
+                </div>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Course Materials</p>
+                    <h4 class="mb-0">0</h4>
                 </div>
             </div>
+            <div class="card-footer p-3"></div>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="ff_one style3">
-                <div class="icon"><span class="flaticon-online-learning"></span></div>
-                <div class="detais">
-                    <p>Courses</p>
-                    <div class="timer">{{ $course }}</div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="material-icons opacity-10">menu_book</i>
+                </div>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Courses</p>
+                    <h4 class="mb-0">{{ $course }}</h4>
                 </div>
             </div>
+            <div class="card-footer p-3"></div>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="ff_one style4">
-                <div class="icon"><span class="flaticon-like"></span></div>
-                <div class="detais">
-                    <p>Amount Spent</p>
-                    <div class="timer">{{ $amount }}</div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card">
+            <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                    <i class="material-icons opacity-10">attach_money</i>
+                </div>
+                <div class="text-end pt-1">
+                    <p class="text-sm mb-0 text-capitalize">Amount Spent</p>
+                    <h4 class="mb-0">₹ {{ $amount }}</h4>
                 </div>
             </div>
+            <div class="card-footer p-3"></div>
         </div>
-        <div class="col-xl-12">
-            <div class="application_statics">
-                <h4>Your Courses</h4>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-lg-12 col-md-12 mb-md-0">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="row">
+                    <div class="col-lg-6 col-7">
+                        <h6>Your Enrolled Courses</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Course Name</th>
-                                <th>Purchased on</th>
-                                <th>Instructor</th>
-                                <th></th>
+                                <th width=10>#</th>
+                                <th class="">Course Name</th>
+                                <th class="">Enrolled on</th>
+                                <th class="">Instructor</th>
+                                <th class=""></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($courses)
-                            @php
-                                $index = 1;
-                            @endphp
-                                @foreach ($courses as $course)
-                                    <tr>
-                                        <td>{{ $index++ }}</td>
-                                        <td>{{ $course->course->title }}</td>
-                                        <td>{{ date('M d, Y', strtotime($course->created_at)) }}</td>
-                                        <td>{{ $course->instructor->name }}</td>
-                                        <td><a href="{{ route('user.account.message') }}?id={{ $course->instructor->id }}" class="btn btn-info btn-sm">Message Instructor</a></td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                            @foreach ($courses as $course)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="text-dark font-weight-bold">{{ $course->course->title }}</td>
+                                <td class="text-dark font-weight-bold">{{ $course->created_at->format('d M Y') }}</td>
+                                <td class="text-dark font-weight-bold">{{ $course->instructor->name }}</td>
+                                <td class="text-dark font-weight-bold">
+                                    <a href="{{ route('user.account.message') }}?id={{ $course->instructor->id }}" class="btn btn-info btn-sm">Message Instructor</a>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 mb-md-0">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="row">
+                    <div class="col-lg-6 col-7">
+                        <h6>Meetings</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th width=10>#</th>
+                                <th class="">Course Name</th>
+                                <th class="">Instructor</th>
+                                <th class=""></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($meetings as $meeting)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="text-dark font-weight-bold">{{ $meeting->course->title }}</td>
+                                <td class="text-dark font-weight-bold">{{ $meeting->instructor->name }}</td>
+                                <td class="text-dark font-weight-bold">
+                                    <a href="{{ route('user.account.meeting', ['meeting' => $meeting->meeting_id ]) }}" class="btn btn-info btn-sm">Join Meeting</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

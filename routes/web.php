@@ -30,6 +30,7 @@ Route::name('web.')->middleware([])->namespace('\App\Http\Controllers\Web')->gro
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
+
 Route::name('user.')->middleware(['auth', 'UserAuth'])->namespace('\App\Http\Controllers\User')->prefix('my-account')->group(function () {
     Route::get('/', 'Account@index')->name('account');
     Route::get('/attend/{meeting}', 'Account@attendMeeting')->name('account.meeting');
@@ -76,6 +77,24 @@ Route::name('admin.')->middleware(['auth', 'AdminAuth'])->namespace('\App\Http\C
     Route::get('meeting', 'Users@index')->name('users');
     Route::get('meeting/{id}', 'Users@index')->name('users');
     Route::post('meeting/save', 'Users@index')->name('users');
+});
+
+
+Route::name('instructor.')->middleware(['auth'])->namespace('\App\Http\Controllers\Instructor')->prefix('i')->group(function () {
+    Route::get('/', 'Profile@index')->name('profile');
+    Route::post('/profile', 'Profile@profileUpdate')->name('profile.profile');
+    Route::post('/password', 'Profile@changePassword')->name('profile.password');
+
+    Route::get('/meeting', 'Meetings@meeting')->name('meeting');
+    Route::post('/meeting/save', 'Meetings@meetingSave')->name('meeting.create');
+    Route::get('/attend/{meeting}', 'Meetings@joinMeeting')->name('join.meeting');
+    // Route::jitsi();
+
+    Route::get('/students', 'Students@index')->name('students');
+    Route::get('/students/send-file/{student}', 'Students@sendFile')->name('students.file');
+    Route::post('/students/save-file/{student}', 'Students@uploadFile')->name('students.file.upload');
+    Route::get('/message', 'Messages@index')->name('message');
+    Route::post('/message/send/{receiver}', 'Messages@send')->name('message.send');
 });
 
 require __DIR__ . '/auth.php';

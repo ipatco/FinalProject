@@ -1,166 +1,142 @@
-<!--
- * @fileName comm.html
- * @author Amir <amirsanni@gmail.com>
- * @date 22-Dec-2016
- */
--->
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Multi-User Video Call</title>
 
-        <title>Chat App</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('video-call/img/favicon.ico') }}">
-        <!-- favicon ends -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel='stylesheet' href='{{ asset('webrtc/css/app.css') }}' type="text/css">
 
-        <!--- LOAD FILES -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.8/font-awesome-animation.min.css">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="module" src='{{ asset('webrtc/js/chat.js') }}'></script>
+        <script type="module" src='{{ asset('webrtc/js/events.js') }}'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js" integrity="sha256-2qQheewaqnZlXJ3RJRghVUwD/3fD9HNqxh4C+zvgmF4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js'></script>
+        <style>
+            .call_buttons_container {
+  position: fixed;
+  width: 395px;
+  height: 75px;
+  bottom: 10px;
+  left: calc(50% - 200px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99999999;
+}
+.call_button_small {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  transition: 0.3s;
+}
 
-        <!-- Custom styles -->
-        <link rel="stylesheet" href="{{ asset('video-call/css/comm.css') }}">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-                <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+.call_button_large {
+  width: 75px;
+  height: 75px;
+  border-radius: 75px;
+  background: #fc5d5b;
+  transition: 0.3s;
+}
+        </style>
     </head>
 
-
     <body>
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Remote Video -->
-                <video id="peerVid" poster="{{ asset('video-call/img/vidbg.png') }}" playsinline autoplay></video>
-                <!-- Remote Video -->
-            </div>
-
-            <div class="row margin-top-20">
-                <!-- Call Buttons -->
-                <div class="col-sm-12 text-center" id="callBtns">
-                    <button class="btn btn-success btn-sm initCall" id="initAudio" title='Start audio call'><i class="fa fa-phone"></i></button>
-                    <button class="btn btn-info btn-sm initCall" id="initVideo" title="Start video call"><i class="fa fa-video-camera"></i></button>
-                    <button class="btn btn-danger btn-sm" id="terminateCall" disabled title="End call"><i class="fa fa-phone-square"></i></button>
-                    <button class="btn btn-sm" id='record' disabled title="Record"><i class="fa fa-dot-circle-o"></i></button>
-                    <button class="btn btn-warning btn-sm" id='screen' disabled title="Share Screen"><i class="fa fa-picture-o"></i></button>
+        <input type="hidden" id="user_name" value="{{ auth()->user()->name }}">
+        <input type="hidden" id="meeting_id" value="{{ $meeting->meeting_id }}">
+        <div class="custom-modal" id='recording-options-modal'>
+            <div class="custom-modal-content">
+                <div class="row text-center">
+                    <div class="col-md-6 mb-2">
+                        <span class="record-option" id='record-video'>Record video</span>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <span class="record-option" id='record-screen'>Record screen</span>
+                    </div>
                 </div>
-                <!-- Call Buttons -->
 
-                <!-- Timer -->
-                <div class="col-sm-12 text-center margin-top-5" style="color:#fff">
-                    <span id="countHr"></span>h:
-                    <span id="countMin"></span>m:
-                    <span id="countSec"></span>s
-                </div>
-                <!-- Timer -->
-            </div>
-
-
-            <!-- Local Video -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <video id="myVid" poster="{{ asset('video-call/img/vidbg.png') }}" muted autoplay></video>
-                </div>
-            </div>
-            <!-- Local Video -->
-        </div>
-
-        <div class="container-fluid chat-pane">
-            <!-- CHAT PANEL-->
-            <div class="row chat-window col-xs-12 col-md-4">
-                <div class="">
-                    <div class="panel panel-default chat-pane-panel">
-                        <div class="panel-heading chat-pane-top-bar">
-                            <div class="col-xs-10" style="margin-left:-20px">
-                                <i class="fa fa-comment" id="remoteStatus"></i> Remote
-                                <b id="remoteStatusTxt">(Offline)</b>
-                            </div>
-                            <div class="col-xs-2 pull-right">
-                                <span id="minim_chat_window" class="panel-collapsed fa fa-plus icon_minim pointer"></span>
-                            </div>
-                        </div>
-
-                        <div class="panel-body msg_container_base" id="chats"></div>
-
-                        <div class="panel-footer">
-                            <span id="typingInfo"></span>
-                            <div class="input-group">
-                                <textarea id='chatInput' class="form-control chat-input" placeholder="Type message here..."></textarea>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary btn-sm" id="chatSendBtn">Send</button>
-                                </span>
-                            </div>
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-outline-danger" id='closeModal'>Close</button>
                     </div>
                 </div>
             </div>
-            <!-- CHAT PANEL -->
         </div>
 
-        <!--Modal to show that we are calling-->
-        <div id="callModal" class="modal">
-            <div class="modal-content text-center">
-                <div class="modal-header" id="callerInfo"></div>
 
-                <div class="modal-body">
-                    <button type="button" class="btn btn-danger btn-sm" id='endCall'>
-                        <i class="fa fa-times-circle"></i> End Call
-                    </button>
+        <nav class="navbar fixed-top bg-info rounded-0 d-print-none">
+            <div class="text-white">Video Call</div>
+
+            <div class="pull-right room-comm" hidden>
+                <button class="btn btn-sm rounded-0 btn-no-effect" id='toggle-video' title="Hide Video">
+                    <i class="fa fa-video text-white"></i>
+                </button>
+
+                <button class="btn btn-sm rounded-0 btn-no-effect" id='toggle-mute' title="Mute">
+                    <i class="fa fa-microphone-alt text-white"></i>
+                </button>
+
+                <button class="btn btn-sm rounded-0 btn-no-effect" id='share-screen' title="Share screen">
+                    <i class="fa fa-desktop text-white"></i>
+                </button>
+
+                <button class="btn btn-sm rounded-0 btn-no-effect" id='record' title="Record">
+                    <i class="fa fa-dot-circle text-white"></i>
+                </button>
+
+                <button class="btn btn-sm text-white pull-right btn-no-effect" id='toggle-chat-pane'>
+                    <i class="fa fa-comment"></i> <span class="badge badge-danger very-small font-weight-lighter" id='new-chat-notification' hidden>New</span>
+                </button>
+
+                <button class="btn btn-sm rounded-0 btn-no-effect text-white">
+                    <a href="/" class="text-white text-decoration-none"><i class="fa fa-sign-out-alt text-white" title="Leave"></i></a>
+                </button>
+            </div>
+        </nav>
+
+        <div class="container-fluid room-comm" hidden>
+            <div class="row local-vid-div">
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 main" id='main-section'>
+                    <div class="row mt-2 mb-2" id='videos'></div>
+                    <video class="local-video mirror-mode" id='local' volume='0' autoplay muted style="z-index: 9999"></video>
+                    <div class='call_buttons_container display_none' id='call_buttons'>
+                        <button class='call_button_small' id='toggle-mute'>
+                            <img src='{{ asset('webrtc/utils/images/mic.png') }}' id='mic_button_image'></img>
+                        </button>
+                        <button class='call_button_small' id='toggle-video'>
+                            <img src='{{ asset('webrtc/utils/images/camera.png') }}' id='camera_button_image'></img>
+                        </button>
+                        <button class='call_button_large' id='hang_up_button'>
+                            <img src='{{ asset('webrtc/utils/images/hangUp.png') }}'></img>
+                        </button>
+                        <button class='call_button_small' id='share-screen'>
+                            <img src='{{ asset('webrtc/utils/images/switchCameraScreenSharing.png') }}'></img>
+                        </button>
+                        <button class='call_button_small' id='record'>
+                            <img src='{{ asset('webrtc/utils/images/recordingStart.png') }}'></img>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-md-3 chat-col d-print-none mb-2 bg-info" id='chat-pane' hidden>
+                    <div class="row">
+                        <div class="col-12 text-center h2 mb-3">CHAT</div>
+                    </div>
+
+                    <div id='chat-messages'></div>
+
+                    <div class="row">
+                        <textarea id='chat-input' class="form-control rounded-0 chat-box border-info" rows='3' placeholder="Type here..."></textarea>
+                    </div>
                 </div>
             </div>
         </div>
-        <!--Modal end-->
-
-
-        <!--Modal to give options to receive call-->
-        <div id="rcivModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header" id="calleeInfo"></div>
-
-                <div class="modal-body text-center">
-                    <button type="button" class="btn btn-success btn-sm answerCall" id='startAudio'>
-                        <i class="fa fa-phone"></i> Audio Call
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm answerCall" id='startVideo'>
-                        <i class="fa fa-video-camera"></i> Video Call
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm" id='rejectCall'>
-                        <i class="fa fa-times-circle"></i> Reject Call
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!--Modal end-->
-
-        <!--Snackbar -->
-        <div id="snackbar"></div>
-        <!-- Snackbar -->
-
-        <!-- custom js -->
-        <script>
-            'use strict';
-            const appRoot = 'http://localhost:8000/';
-            const wsUrl = 'ws://localhost:8080';//use wss://localhost:8080/comm for secured connection
-            const spinnerClass = 'fa fa-spinner faa-spin animated';
-            function getMeetingRoom(){
-                return '{{ $meeting_id }}';
-            }
-        </script>
-        <script src="{{ asset('video-call/js/adapter.js') }}"></script>
-        <script src="{{ asset('video-call/js/comm.js') }}"></script>
-        <audio id="callerTone" src="{{ asset('video-call/media/callertone.mp3') }}" loop preload="auto"></audio>
-        <audio id="msgTone" src="{{ asset('video-call/media/msgtone.mp3') }}" preload="auto"></audio>
     </body>
 </html>

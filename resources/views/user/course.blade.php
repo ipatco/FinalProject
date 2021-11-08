@@ -5,55 +5,46 @@
 @endsection
 
 @section('page')
-
-
-    <div class="row">
-        <x-user-mobile-nav></x-user-mobile-nav>
-        <div class="col-lg-12">
-            <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-                <h4 class="title float-left">Courses</h4>
-                <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{ route('web.home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('user.account') }}">My Account</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Courses</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="col-xl-12">
-            <div class="application_statics" style="min-height: 600px;">
-                <h4>Your Courses</h4>
+<div class="row">
+    <div class="col-lg-12 col-md-12 mb-md-0">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="row">
+                    <div class="col-lg-6 col-7">
+                        <h6>Your Enrolled Courses</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Course Name</th>
-                                <th>Purchased on</th>
-                                <th>Instructor</th>
-                                <th>Video Call</th>
-                                <th></th>
+                                <th width=10>#</th>
+                                <th class="">Course Name</th>
+                                <th class="">Enrolled on</th>
+                                <th class="">Instructor</th>
+                                <th class=""></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($courses)
-                            @php
-                                $index = 1;
-                            @endphp
-                                @foreach ($courses as $course)
-                                    <tr>
-                                        <td>{{ $index++ }}</td>
-                                        <td>{{ $course->course->title }}</td>
-                                        <td>{{ date('M d, Y', strtotime($course->created_at)) }}</td>
-                                        <td>{{ $course->instructor->name }}</td>
-                                        <td><a href="{{ route('user.account.meeting', ['meeting'=>'xxxx-xxxx-xxxx']) }}" class="btn btn-success btn-sm">Attend Video</a></td>
-                                        <td><a href="{{ route('user.account.message') }}?id={{ $course->instructor->id }}" class="btn btn-info btn-sm">Message Instructor</a></td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                            @foreach ($courses as $course)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="text-dark font-weight-bold">{{ $course->course->title }}</td>
+                                <td class="text-dark font-weight-bold">{{ $course->created_at->format('d M Y') }}</td>
+                                <td class="text-dark font-weight-bold">{{ $course->instructor->name }}</td>
+                                <td class="text-dark font-weight-bold">
+                                    <a href="{{ route('user.account.message') }}?id={{ $course->instructor->id }}" class="btn btn-info btn-sm">Message Instructor</a>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 @endsection

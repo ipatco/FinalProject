@@ -1,187 +1,160 @@
+
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="academy, college, coursera, courses, education, elearning, kindergarten, lms, lynda, online course, online education, school, training, udemy, university">
-<meta name="description" content="Edumy - LMS Online Education Course & School HTML Template">
-<meta name="CreativeLayers" content="ATFN">
-<!-- css file -->
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/dashbord_navitaion.css') }}">
-<!-- Responsive stylesheet -->
-<link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-<!-- Title -->
-<title>@yield('title')</title>
-<!-- Favicon -->
-<link href="{{ asset('assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="{{ asset('assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" />
-<style>
-    .logoImg{
-        max-width: 65px !important;
-    }
-</style>
-@yield('css')
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body>
-<div class="wrapperx">
-	<div class="preloader"></div>
-
-	<!-- Main Header Nav -->
-	<header class="header-nav menu_style_home_one dashbord_pages navbar-scrolltofixed stricky main-menu">
-		<div class="container-fluid">
-		    <!-- Ace Responsive Menu -->
-		    <nav>
-		        <!-- Menu Toggle btn-->
-		        <div class="menu-toggle">
-		            <img class="nav_logo_img img-fluid logoImg" src="{{ asset('assets/logo.png') }}" alt="header-logo.png">
-		            <button type="button" id="menu-btn">
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		            </button>
-		        </div>
-		        <a href="{{ route('user.account') }}" class="navbar_brand float-left dn-smd">
-		            <img class="logo1 img-fluid logoImg" src="{{ asset('assets/logo.png') }}" alt="header-logo.png">
-		            <img class="logo2 img-fluid logoImg" src="{{ asset('assets/logo.png') }}" alt="header-logo.png">
-		            <span>Learn to Earn</span>
-		        </a>
-		        <!-- Responsive Menu Structure-->
-		        <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
-		        <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
-                    <li>
-                        <a href="{{ route('web.home') }}"><span class="title">Home</span></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('web.explore') }}"><span class="title">Explore Courses</span></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('web.corporate') }}"><span class="title">Corporate Training</span></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('web.contact') }}"><span class="title">Contact</span></a>
-                    </li>
-		        </ul>
-		    </nav>
-		</div>
-	</header>
-
-	<!-- Main Header Nav For Mobile -->
-	<div id="page" class="stylehome1 h0">
-		<div class="mobile-menu">
-			<div class="header stylehome1 dashbord_mobile_logo dashbord_pages">
-				<div class="main_logo_home2">
-		            <img class="nav_logo_img img-fluid float-left mt20 logoImg" src="{{ asset('assets/logo.png') }}" alt="header-logo.png">
-		            <span>Learn to Earn</span>
-				</div>
-				<ul class="menu_bar_home2">
-					<li class="list-inline-item"></li>
-					<li class="list-inline-item"><a href="#menu"><span></span></a></li>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/instructor/img/apple-icon.png') }}">
+		<link rel="icon" type="image/png" href="{{ asset('assets/instructor/img/favicon.png') }}">
+		<title>@yield('title') | Learn to Earn</title>
+		<!--     Fonts and icons     -->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+		<!-- Nucleo Icons -->
+		<link href="{{ asset('assets/instructor/css/nucleo-icons.css') }}" rel="stylesheet" />
+		<link href="{{ asset('assets/instructor/css/nucleo-svg.css') }}" rel="stylesheet" />
+		<!-- Font Awesome Icons -->
+		<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+		<!-- Material Icons -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+		<!-- CSS Files -->
+		<link id="pagestyle" href="{{ asset('assets/instructor/css/material-dashboard.css?v=3.0.0') }}" rel="stylesheet" />
+        @yield('css')
+	</head>
+	<body class="g-sidenav-show  bg-gray-200">
+		<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+			<div class="sidenav-header">
+				<i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+				<a class="navbar-brand m-0" href="">
+				<img src="{{ asset('assets/logo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
+				<span class="ms-1 font-weight-bold text-white">Learn to Earn</span>
+				</a>
+			</div>
+			<hr class="horizontal light mt-0 mb-2">
+			<div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link text-white {{ request()->url() == route('user.account')?' active bg-gradient-primary':'' }}" href="{{ route('user.account') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">space_dashboard</i>
+							</div>
+							<span class="nav-link-text ms-1">Dashboard</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white {{ request()->url() == route('user.account.course')?' active bg-gradient-primary':'' }}" href="{{ route('user.account.course') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">menu_book</i>
+							</div>
+							<span class="nav-link-text ms-1">My Courses</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white {{ request()->url() == route('user.account.transaction')?' active bg-gradient-primary':'' }}" href="{{ route('user.account.transaction') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">payments</i>
+							</div>
+							<span class="nav-link-text ms-1">Transactions</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white {{ request()->url() == route('user.account.message')?' active bg-gradient-primary':'' }}" href="{{ route('user.account.message') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">question_answer</i>
+							</div>
+							<span class="nav-link-text ms-1">Messages</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white {{ request()->url() == route('user.account.materials')?' active bg-gradient-primary':'' }}" href="{{ route('user.account.materials') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">assignment</i>
+							</div>
+							<span class="nav-link-text ms-1">Course Materials</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white {{ request()->url() == route('user.account.certificates')?' active bg-gradient-primary':'' }}" href="{{ route('user.account.certificates') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">card_membership</i>
+							</div>
+							<span class="nav-link-text ms-1">Certificates</span>
+						</a>
+					</li>
+					<li class="nav-item mt-3">
+						<h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white {{ request()->url() == route('user.account.setting')?' active bg-gradient-primary':'' }}" href="{{ route('user.account.setting') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">settings</i>
+							</div>
+							<span class="nav-link-text ms-1">Settings</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white " href="{{ route('user.account.certificates') }}">
+							<div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="material-icons opacity-10">logout</i>
+							</div>
+							<span class="nav-link-text ms-1">Logout</span>
+						</a>
+					</li>
 				</ul>
 			</div>
-		</div><!-- /.mobile-menu -->
-		<nav id="menu" class="stylehome1">
-			<ul>
-				<li>
-                    <a href="{{ route('web.home') }}"><span class="title">Home</span></a>
-                </li>
-                <li>
-                    <a href="{{ route('web.explore') }}"><span class="title">Explore Courses</span></a>
-                </li>
-                <li>
-                    <a href="{{ route('web.corporate') }}"><span class="title">Corporate Training</span></a>
-                </li>
-                <li>
-                    <a href="{{ route('web.contact') }}"><span class="title">Contact</span></a>
-                </li>
-			</ul>
-		</nav>
-	</div>
-    <!-- Our Dashbord Sidebar -->
-	<section class="dashboard_sidebar dn-1199">
-		<div class="dashboard_sidebars">
-			<div class="user_board">
-				<div class="user_profile">
-					<div class="media">
-					  	<div class="media-body">
-					    	<h4 class="mt-0">Start</h4>
-						</div>
-					</div>
-				</div>
-				<div class="dashbord_nav_list">
-					<ul>
-						<li class="active"><a href="{{ route('user.account') }}"><span class="flaticon-puzzle-1"></span> Dashboard</a></li>
-						<li><a href="{{ route('user.account.course') }}"><span class="flaticon-online-learning"></span> My Courses</a></li>
-						<li><a href="{{ route('user.account.transaction') }}"><span class="flaticon-shopping-bag-1"></span> Transactions</a></li>
-						<li><a href="{{ route('user.account.message') }}"><span class="flaticon-speech-bubble"></span> Messages</a></li>
-						<li><a href="{{ route('user.account.materials') }}"><span class="flaticon-resume"></span> Course Materials</a></li>
-						<li><a href="{{ route('user.account.certificates') }}"><span class="flaticon-graduation-cap"></span> Certificates</a></li>
-					</ul>
-					<h4>Account</h4>
-					<ul>
-						<li><a href="{{ route('user.account.setting') }}"><span class="flaticon-settings"></span> Settings</a></li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-						    <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"><span class="flaticon-logout"></span> Logout</a></li>
-                        </form>
-					</ul>
+			<div class="sidenav-footer position-absolute w-100 bottom-0 ">
+				<div class="mx-3">
+					<a class="btn bg-gradient-primary mt-4 w-100" href="{{ route('web.home') }}" type="button">Back to Website</a>
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<!-- Our Dashbord -->
-	<div class="our-dashbord dashbord">
-		<div class="dashboard_main_content">
-			<div class="container-fluid">
-				<div class="main_content_container">
-					@yield('page')
-					<div class="row mt50 mb50">
-						<div class="col-lg-6 offset-lg-3">
-							<div class="copyright-widget text-center">
-								<p class="color-black2">Copyright Learn to Earn © {{ date('Y') }}. All Rights Reserved. | iPatco</p>
-							</div>
-						</div>
+		</aside>
+		<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+			<!-- Navbar -->
+			<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+				<div class="container-fluid py-1 px-3">
+					<nav aria-label="breadcrumb">
+						<h6 class="font-weight-bolder mb-0">@yield('title')</h6>
+					</nav>
+					<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+						<div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+						<ul class="navbar-nav  justify-content-end">
+							<li class="nav-item d-flex align-items-center">
+								<a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+								<i class="fa fa-share me-sm-1"></i>
+								<span class="d-sm-inline d-none">Logout</span>
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
+			</nav>
+			<!-- End Navbar -->
+			<div class="container-fluid py-4">
+                @yield('page')
 			</div>
-		</div>
-	</div>
+		</main>
 
-<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
-</div>
-<!-- Wrapper End -->
-<script type="text/javascript" src="{{ asset('assets/js/jquery-3.3.1.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery.mmenu.all.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/ace-responsive-menu.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/chart.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/chart-custome.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/snackbar.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/simplebar.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/parallax.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/scrollto.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery-scrolltofixed-min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery.counterup.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/wow.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/progressbar.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/slider.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/timepicker.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/wow.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/dashboard-script.js') }}"></script>
-<!-- Custom script for all pages -->
-<script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
-@yield('js')
-</body>
+		<!--   Core JS Files   -->
+        {{-- Jquery cdn --}}
+        <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="{{ asset('assets/instructor/js/core/popper.min.js') }}"></script>
+		<script src="{{ asset('assets/instructor/js/core/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('assets/instructor/js/plugins/perfect-scrollbar.min.js') }}"></script>
+		<script src="{{ asset('assets/instructor/js/plugins/smooth-scrollbar.min.js') }}"></script>
+		<script src="{{ asset('assets/instructor/js/plugins/chartjs.min.js') }}"></script>
+        @yield('js')
+		<script>
+			var win = navigator.platform.indexOf('Win') > -1;
+			if (win && document.querySelector('#sidenav-scrollbar')) {
+			  var options = {
+			    damping: '0.5'
+			  }
+			  Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+			}
+		</script>
+		<!-- Github buttons -->
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+		<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+		<script src="{{ asset('assets/instructor/js/material-dashboard.min.js?v=3.0.0') }}"></script>
+	</body>
 </html>
+
