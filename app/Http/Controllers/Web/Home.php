@@ -13,11 +13,14 @@ use Session;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Razorpay\Api\Api;
+use Zoom;
 
 class Home extends Controller
 {
     public function index()
     {
+        $user = Zoom::user()->all();
+        dd($user);
         $categories = Category::limit(8)->get();
         $courses = Course::orderByDesc('id')->get();
         // dd($courses);
@@ -31,7 +34,7 @@ class Home extends Controller
 
     public function courseDetail($slug)
     {
-        $course = (new Course())->with('courseEligibility', 'courseModule', 'courseBenifits', 'courseFeature', 'courseFee', 'courseLearn', 'courseSkill', 'courseTool', 'careerService', 'faq')->where('slug', $slug)->get()->first();
+        $course = (new Course())->with('courseEligibility', 'courseModule', 'courseBenifits', 'courseFeature', 'courseFee', 'courseLearn', 'courseSkill', 'courseTool', 'careerService', 'faq', 'category')->where('slug', $slug)->get()->first();
         // dd($course);
         return view('web.detail', compact('course'));
     }

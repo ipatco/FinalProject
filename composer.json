@@ -2,17 +2,22 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
         "amyisme13/laravel-jitsi": "^1.0",
         "doctrine/dbal": "^3.1",
+        "firebase/php-jwt": "^5.5",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "macsidigital/laravel-zoom": "^4.1",
         "proengsoft/laravel-jsvalidation": "^4.5",
         "razorpay/razorpay": "^2.8"
     },

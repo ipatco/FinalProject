@@ -24,6 +24,6 @@ class Category extends Model
 
     public function course()
     {
-        return $this->hasMany('\App\Models\Course', 'category', 'id');
+        return $this->hasMany('\App\Models\Course');
     }
 }

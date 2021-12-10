@@ -27,6 +27,49 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<style>
+            /* Change bootstrap primary color */
+            .btn-thm {
+                background-color: #130d4c !important;
+                border-color: #130d4c !important;
+                color: #fff !important;
+            }
+            .btn-thm:hover {
+                background-color: #241a7e;
+                border-color: #241a7e;
+            }
+            .btn-thm:focus, .btn-thm.focus {
+                box-shadow: 0 0 0 0.2rem #241a7e;
+            }
+            .btn-thm.disabled, .btn-thm:disabled {
+                background-color: #130d4c !important;
+                border-color: #130d4c !important;
+            }
+            .btn-thm:not(:disabled):not(.disabled):active, .btn-thm:not(:disabled):not(.disabled).active, .show > .btn-thm.dropdown-toggle {
+                background-color: #241a7e;
+                border-color: #241a7e;
+                box-shadow: 0 0 0 0.2rem #241a7e;
+            }
+            .btn-thm:not(:disabled):not(.disabled):active:focus, .btn-thm:not(:disabled):not(.disabled).active:focus, .show > .btn-thm.dropdown-toggle:focus {
+                box-shadow: 0 0 0 0.2rem #241a7e;
+            }
+            .btn-thm.disabled:hover, .btn-thm:disabled:hover {
+                background-color: #130d4c !important;
+                border-color: #130d4c !important;
+            }
+            .btn-thm.disabled:focus, .btn-thm:disabled:focus {
+                box-shadow: none;
+            }
+            .btn-thm.disabled.focus, .btn-thm:disabled.focus {
+                box-shadow: none;
+            }
+            .btn-thm.disabled:hover, .btn-thm:disabled:hover {
+                background-color: #130d4c !important;
+                border-color: #130d4c !important;
+            }
+            .btn-thm:not(:disabled):not(.disabled).active:hover, .btn-thm:not(:disabled):not(.disabled).active:focus, .show > .btn-thm.dropdown-toggle:hover, .show > .btn-thm.dropdown-toggle:focus {
+                background-color: #241a7e;
+                border-color: #241a7e;
+            }
 			.my-nav-link {
 				display: block;
 				padding: 0.5rem 0rem;
@@ -131,7 +174,7 @@
     border-radius: 0 0 4px 4px;
 }
 .master-counselling-form-header {
-    border-top: 3px solid #ff6e06;
+    border-top: 3px solid #130d4c;
     padding: 30px 20px;
     background-color: #6659b8;
     background-image: url({{ asset('assets/counselling-BG.webp')}});
@@ -150,7 +193,7 @@
 }.master-counselling-form-text {
     font-size: 14px;
     line-height: 19px;
-    color: #f5c723;
+    color: #fff;
     margin-bottom: 0;
 }
 .master-counselling-form-body .form-default input, .master-counselling-form-body .form-default select {
@@ -198,7 +241,7 @@
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
 }.master-counselling-form-body .form-default input[type="submit"] {
-    background: linear-gradient(270deg,#ff630b 0,#f90 100%);
+    background: #130d4c;
     width: 100%;
     color: #fff;
     font-size: 15px;
@@ -302,6 +345,16 @@ margin-bottom: 10px;
 }
 .fs-15px {
     font-size: 15px !important;
+}
+.cart_btnss_white {
+    background-color: #ffffff;
+    border: 2px solid #130d4c;
+    border-radius: 27px;
+    color: #130d4c;
+}
+.cart_btnss_white:hover {
+    background-color: #130d4c;
+    color: #ffffff;
 }
 		</style>
 		@yield('css')

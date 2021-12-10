@@ -59,6 +59,13 @@ function addModule() {
                     <textarea name="answer[]" class="form-control" required data-validation-required-message="This field is required"></textarea>\
                 </div>\
             </div>\
+            <div class="form-group">\
+                <h5> File <span class= "required" >*</span></h5>\
+                <div class="controls mb-1">\
+                    <input type="file" name="userfile[]" class="form-control" required data-validation-required-message="This field is required">\
+                    <input type ="hidden" name="file_old[]" class ="form-control" required data-validation-required-message="This field is required" value="{{ $module->file }}">\
+                </div>\
+            </div>\
         </div>')
 }
 

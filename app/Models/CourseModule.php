@@ -36,19 +36,19 @@ class CourseModule extends Model
                     if (empty($title[$i])) {
                         $this->where('id', $ids[$i])->delete();
                     }
-                    $this->where('id', $ids[$i])->update([
-                        'title' => $title[$i],
-                        'description' => $description[$i],
-                        'file' => $img
-                    ]);
+                    $module = CourseModule::find($ids[$i]);
+                    $module->title = $title[$i];
+                    $module->description = $description[$i];
+                    $module->img = $img;
+                    $module->save();
                 } else {
                     $img = $file[$i]->store('uploads/course/modules');
-                    $this->create([
-                        'title' => $title[$i],
-                        'description' => $description[$i],
-                        'course_id' => $id,
-                        'file' => $img
-                    ]);
+                    $module = new CourseModule();
+                    $module->title = $title[$i];
+                    $module->description = $description[$i];
+                    $module->img = $img;
+                    $module->course_id = $id;
+                    $module->save();
                 }
             }
         }

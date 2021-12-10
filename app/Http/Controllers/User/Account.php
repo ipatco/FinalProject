@@ -116,9 +116,10 @@ class Account extends Controller
 
     public function attendMeeting($meeting)
     {
-        if (Meeting::where('meeting_id', '=', $meeting)->where('user_id', '=', Auth::user()->id)->get()->first()) {
+        $meeting = Meeting::where('meeting_id', '=', $meeting)->where('user_id', '=', Auth::user()->id)->get()->first();
+        if ($meeting) {
             $meeting_id = $meeting;
-            return view('meeting', compact('meeting_id'));
+            return view('meeting', compact('meeting_id', 'meeting'));
         }
         return redirect()->back();
     }

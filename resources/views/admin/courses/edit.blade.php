@@ -2,7 +2,7 @@
 
 @section('title', 'Edit Course')
 @section('css')
-    
+
 @endsection
 
 @section('page')
@@ -134,7 +134,7 @@
                                                                     <option value="" selected>Select Category</option>
                                                                     @if ($categories)
                                                                         @foreach ($categories as $category)
-                                                                            <option value="{{ $category->id }}" {{ $course->category == $category->id?'selected':'' }}>{{ $category->name }}</option>
+                                                                            <option value="{{ $category->id }}" {{ $course->category->id == $category->id?'selected':'' }}>{{ $category->name }}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
@@ -200,7 +200,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="text-right">
                                                             <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
                                                             <button type="reset" class="btn btn-danger">Reset <i class="fa fa-refresh position-right"></i></button>
@@ -220,11 +220,11 @@
                                                                 @foreach ($course->courseEligibility as $eligibility)
                                                                 <div class="controls mb-1">
                                                                     <input type="text" name="text[]" class="form-control" required data-validation-required-message="This field is required" value="{{$eligibility->text}}">
-                                                                </div>  
+                                                                </div>
                                                                 @endforeach
                                                             @endif
                                                         </div>
-                                                        
+
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" onclick="addEligibility()">Add More <i class="fa fa-plus position-right"></i></button>
                                                             <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
@@ -245,11 +245,11 @@
                                                                 @foreach ($course->courseLearn as $learn)
                                                                 <div class="controls mb-1">
                                                                     <input type="text" name="text[]" class="form-control" required data-validation-required-message="This field is required" value="{{$learn->text}}">
-                                                                </div>  
+                                                                </div>
                                                                 @endforeach
                                                             @endif
                                                         </div>
-                                                        
+
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" onclick="addWhatYouWillLearn()">Add More <i class="fa fa-plus position-right"></i></button>
                                                             <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
@@ -276,7 +276,7 @@
                                                                 @endforeach
                                                                 @endif
                                                             </div>
-                                                    </div> 
+                                                    </div>
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addBenifit">Add New <i class="fa fa-plus position-right"></i></button>
@@ -321,7 +321,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" onclick="addModule()">Add More <i class="fa fa-plus position-right"></i></button>
@@ -343,11 +343,11 @@
                                                                 @foreach ($course->courseSkill as $skill)
                                                                 <div class="controls mb-1">
                                                                     <input type="text" name="text[]" class="form-control" required data-validation-required-message="This field is required" value="{{$skill->title}}">
-                                                                </div>  
+                                                                </div>
                                                                 @endforeach
                                                             @endif
                                                         </div>
-                                                        
+
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" onclick="addSkill()">Add More <i class="fa fa-plus position-right"></i></button>
                                                             <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
@@ -374,7 +374,7 @@
                                                             @endif
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" onclick="addTools()">Add More <i class="fa fa-plus position-right"></i></button>
                                                             <button type="submit" class="btn btn-success">Submit <i class="fa fa-thumbs-o-up position-right"></i></button>
@@ -417,7 +417,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" onclick="addFee()">Add More <i class="fa fa-plus position-right"></i></button>
@@ -456,7 +456,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-lg-12 col-md-12">
                                                         <div class="text-right">
                                                             <button type="button" class="btn btn-info" onclick="addFaq()">Add More <i class="fa fa-plus position-right"></i></button>

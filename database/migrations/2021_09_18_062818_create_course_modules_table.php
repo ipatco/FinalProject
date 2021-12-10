@@ -18,6 +18,7 @@ class CreateCourseModulesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->unsignedBigInteger('course_id');
+            $table->string('img')->nullable();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();
         });

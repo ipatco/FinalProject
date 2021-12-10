@@ -24,11 +24,14 @@ class CreateCoursesTable extends Migration
             $table->string('certificate_img')->nullable();
             $table->double('price')->default('0')->nullable();
             $table->longText('curriculum')->nullable();
-            $table->integer('category');
+            $table->unsignedBigInteger('category_id');
             $table->string('offer_price')->nullable();
             $table->string('discount_text')->nullable();
             $table->string('offer_ends')->nullable();
+            $table->longText('requirement')->nullable();
+            $table->longText('features')->nullable();
             $table->integer('status')->default('1');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

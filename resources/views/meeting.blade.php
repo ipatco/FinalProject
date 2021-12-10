@@ -70,7 +70,7 @@
         <nav class="navbar fixed-top bg-info rounded-0 d-print-none">
             <div class="text-white">Video Call</div>
 
-            <div class="pull-right room-comm" hidden>
+            {{-- <div class="pull-right room-comm" hidden>
                 <button class="btn btn-sm rounded-0 btn-no-effect" id='toggle-video' title="Hide Video">
                     <i class="fa fa-video text-white"></i>
                 </button>
@@ -94,7 +94,7 @@
                 <button class="btn btn-sm rounded-0 btn-no-effect text-white">
                     <a href="/" class="text-white text-decoration-none"><i class="fa fa-sign-out-alt text-white" title="Leave"></i></a>
                 </button>
-            </div>
+            </div> --}}
         </nav>
 
         <div class="container-fluid room-comm" hidden>
@@ -113,7 +113,7 @@
                         <button class='call_button_small' id='toggle-video'>
                             <img src='{{ asset('webrtc/utils/images/camera.png') }}' id='camera_button_image'></img>
                         </button>
-                        <button class='call_button_large' id='hang_up_button'>
+                        <button class='call_button_large' id='hang_up_button' onclick="location.href='/'">
                             <img src='{{ asset('webrtc/utils/images/hangUp.png') }}'></img>
                         </button>
                         <button class='call_button_small' id='share-screen'>

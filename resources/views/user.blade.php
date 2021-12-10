@@ -19,14 +19,28 @@
 		<!-- CSS Files -->
 		<link id="pagestyle" href="{{ asset('assets/instructor/css/material-dashboard.css?v=3.0.0') }}" rel="stylesheet" />
         @yield('css')
+        <style>
+            .fs-25{
+                font-size: 25px;
+            }
+            .max-height-3rem{
+                max-height: 3rem !important;
+            }
+            .sidenav .navbar-brand {
+                padding: 0.7rem 1.5rem;
+            }
+            .sidenav-header{
+                background: #f0f2f5;
+            }
+        </style>
 	</head>
 	<body class="g-sidenav-show  bg-gray-200">
 		<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
 			<div class="sidenav-header">
 				<i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
 				<a class="navbar-brand m-0" href="">
-				<img src="{{ asset('assets/logo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-				<span class="ms-1 font-weight-bold text-white">Learn to Earn</span>
+				<img src="{{ asset('assets/logo.png') }}" class="navbar-brand-img h-100 max-height-3rem" alt="main_logo">
+				<span class="ms-1 font-weight-bold fs-25">Learn to Earn</span>
 				</a>
 			</div>
 			<hr class="horizontal light mt-0 mb-2">
@@ -129,6 +143,10 @@
 			</nav>
 			<!-- End Navbar -->
 			<div class="container-fluid py-4">
+                {{-- alert --}}
+                <div class="alert alert-success alert-dismissible fade show mb-5 text-white" role="alert">
+                    <strong>Welcome {{ auth()->user()->name }}</strong> to your account.
+                </div>
                 @yield('page')
 			</div>
 		</main>

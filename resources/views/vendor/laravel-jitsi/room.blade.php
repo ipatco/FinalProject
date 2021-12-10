@@ -51,7 +51,7 @@
         };
 
         @if (! is_null($jwt))
-        // options.jwt = '{{ $jwt }}';
+        options.jwt = '{{ $jwt }}';
         @endif
 
         const api = new JitsiMeetExternalAPI(domain, options);

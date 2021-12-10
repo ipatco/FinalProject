@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/test', 'Zoom@show');
 
-Route::name('web.')->middleware([])->namespace('\App\Http\Controllers\Web')->group(function () {
+
+Route::name('web.')->middleware([])->namespace('Web')->group(function () {
     Route::get('/', 'Home@index')->name('home');
     Route::get('/browse/{slug}', 'Home@category')->name('category');
     Route::get('/course/{slug}', 'Home@courseDetail')->name('detail');
@@ -31,7 +33,7 @@ Route::name('web.')->middleware([])->namespace('\App\Http\Controllers\Web')->gro
 // })->middleware(['auth'])->name('dashboard');
 
 
-Route::name('user.')->middleware(['auth', 'UserAuth'])->namespace('\App\Http\Controllers\User')->prefix('my-account')->group(function () {
+Route::name('user.')->middleware(['auth', 'UserAuth'])->namespace('User')->prefix('my-account')->group(function () {
     Route::get('/', 'Account@index')->name('account');
     Route::get('/attend/{meeting}', 'Account@attendMeeting')->name('account.meeting');
     Route::get('/courses', 'Account@courses')->name('account.course');
@@ -44,7 +46,7 @@ Route::name('user.')->middleware(['auth', 'UserAuth'])->namespace('\App\Http\Con
     Route::get('/certificates', 'Account@certificates')->name('account.certificates');
 });
 
-Route::name('admin.')->middleware(['auth', 'AdminAuth'])->namespace('\App\Http\Controllers\Admin')->prefix('admin')->group(function () {
+Route::name('admin.')->middleware(['auth', 'AdminAuth'])->namespace('Admin')->prefix('admin')->group(function () {
     Route::get('dashboard', 'Dashboard@index')->name('dashboard');
 
     Route::get('catelog/categories', 'Categories@index')->name('categories');
@@ -80,7 +82,7 @@ Route::name('admin.')->middleware(['auth', 'AdminAuth'])->namespace('\App\Http\C
 });
 
 
-Route::name('instructor.')->middleware(['auth'])->namespace('\App\Http\Controllers\Instructor')->prefix('i')->group(function () {
+Route::name('instructor.')->middleware(['auth'])->namespace('Instructor')->prefix('i')->group(function () {
     Route::get('/', 'Profile@index')->name('profile');
     Route::post('/profile', 'Profile@profileUpdate')->name('profile.profile');
     Route::post('/password', 'Profile@changePassword')->name('profile.password');
@@ -88,7 +90,6 @@ Route::name('instructor.')->middleware(['auth'])->namespace('\App\Http\Controlle
     Route::get('/meeting', 'Meetings@meeting')->name('meeting');
     Route::post('/meeting/save', 'Meetings@meetingSave')->name('meeting.create');
     Route::get('/attend/{meeting}', 'Meetings@joinMeeting')->name('join.meeting');
-    // Route::jitsi();
 
     Route::get('/students', 'Students@index')->name('students');
     Route::get('/students/send-file/{student}', 'Students@sendFile')->name('students.file');
@@ -97,4 +98,9 @@ Route::name('instructor.')->middleware(['auth'])->namespace('\App\Http\Controlle
     Route::post('/message/send/{receiver}', 'Messages@send')->name('message.send');
 });
 
+// Route::prefix('socket')->group(function () {
+//     Route::get('/', 'Socket@index')->name('socket');
+// });
+
+// Route::jitsi();
 require __DIR__ . '/auth.php';

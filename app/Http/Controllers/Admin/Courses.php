@@ -36,6 +36,7 @@ class Courses extends Controller
 
     public function save(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'title' => 'required|min:3',
             'slug' => 'required|unique:courses,slug',
@@ -52,19 +53,20 @@ class Courses extends Controller
         $cover_img = $request->file('cover_img')->store('uploads/course');
         $certificate_img = $request->file('certificate_img')->store('uploads/course/certificate');
 
-        Course::create([
-            'title' => $request->input('title'),
-            'slug' => strtolower(str_replace(' ', '-', $request->input('slug'))),
-            'description' => $request->input('description'),
-            'preview_video' => $request->input('preview_video'),
-            'cover_img' => $cover_img,
-            'certification' => $request->input('certification'),
-            'certificate_img' => $certificate_img,
-            'price' => $request->input('price'),
-            'category' => $request->input('category'),
-            'curriculum' => $request->input('curriculum'),
-            'status' => $request->input('status'),
-        ]);
+        $course = new Course;
+        $course->title = $request->title;
+        $course->slug = $request->slug;
+        $course->description = $request->description;
+        $course->preview_video = $request->preview_video;
+        $course->cover_img = $cover_img;
+        $course->certification = $request->certification;
+        $course->certificate_img = $certificate_img;
+        $course->price = $request->price;
+        $course->curriculum = $request->curriculum;
+        $course->status = $request->status;
+        $course->category_id = $request->category;
+        $course->save();
+
         return redirect()->route('admin.courses');
     }
 
@@ -72,7 +74,7 @@ class Courses extends Controller
     {
         $request = new EditCourse;
         $categories = Category::all();
-        $course = (new Course())->with('courseEligibility', 'courseModule', 'courseBenifits', 'courseFeature', 'courseFee', 'courseLearn', 'courseSkill', 'courseTool', 'careerService', 'faq')->find($id);
+        $course = (new Course())->with('courseEligibility', 'courseModule', 'courseBenifits', 'courseFeature', 'courseFee', 'courseLearn', 'courseSkill', 'courseTool', 'careerService', 'faq', 'category')->find($id);
         $validator = JsValidator::make($request->rules())->__toString();
         return view('admin.courses.edit', compact('validator', 'course', 'categories'));
     }
@@ -99,25 +101,26 @@ class Courses extends Controller
         if ($request->hasFile('certificate_img')) {
             $certificate_img = $request->file('certificate_img')->store('uploads/course/certificate');
         }
-        // dd($_POST);
-        Course::where('id', $id)
-            ->update([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'preview_video' => $request->input('preview_video'),
-                'cover_img' => $cover_img,
-                'certification' => $request->input('certification'),
-                'certificate_img' => $certificate_img,
-                'price' => $request->input('price'),
-                'curriculum' => $request->input('curriculum'),
-                'status' => $request->input('status'),
-                'category' => $request->input('category'),
-                'requirement' => $request->input('requirement'),
-                'features' => $request->input('features'),
-                'offer_price' => $request->input('offer_price'),
-                'discount_text' => $request->input('discount_text'),
-                'offer_ends' => $request->input('offer_ends'),
-            ]);
+
+        $course = Course::find($id);
+        $course->title = $request->title;
+        $course->slug = $request->slug;
+        $course->description = $request->description;
+        $course->preview_video = $request->preview_video;
+        $course->cover_img = $cover_img;
+        $course->certification = $request->certification;
+        $course->certificate_img = $certificate_img;
+        $course->price = $request->price;
+        $course->curriculum = $request->curriculum;
+        $course->status = $request->status;
+        $course->category_id = $request->category;
+        $course->requirement = $request->requirement;
+        $course->features = $request->features;
+        $course->offer_price = $request->offer_price;
+        $course->discount_text = $request->discount_text;
+        $course->offer_ends = $request->offer_ends;
+
+        $course->save();
         return redirect()->back();
     }
 
